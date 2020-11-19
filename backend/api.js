@@ -7,7 +7,9 @@ const events = require("./twitchEvents");
 //Twitch Stuff
 const twitchPubSub = "wss://pubsub-edge.twitch.tv"; // Twitch PubSub server
 const authToken = "auth_token_goes_here"; // Auth token can be found in twitch.com COOKIES
-const topics = ['channel-ext-v1.471239022-qm552050p10oeisvzryhtjj2w9zm4z-broadcast']
+const topics = [
+  "channel-ext-v1.471239022-qm552050p10oeisvzryhtjj2w9zm4z-broadcast",
+];
 const Twitch = new TwitchPubSub(twitchPubSub, authToken, topics);
 
 var wss;

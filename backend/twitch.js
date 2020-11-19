@@ -4,11 +4,10 @@ var PubSub;
 
 class TwitchPubSub {
   constructor(wssURI, authToken, topics) {
-    this.on = events.on;
     PubSub = this;
     this.wssURI = wssURI;
     this.authToken = authToken;
-    this.topics = topics
+    this.topics = topics;
     this.types = {
       message: "MESSAGE",
       response: "RESPONSE",
@@ -67,24 +66,29 @@ class TwitchPubSub {
   handleMessage(data) {
     //Handles New WSS Messages. Raw message is at event.data
     var twitchMessage = JSON.parse(data);
-    if (twitchMessage.type == this.types.message) {
-      var rawMessage = JSON.parse(twitchMessage.data.message);
-      events.emit("message", rawMessage);
+    switch (twitchMessage.type) {
+      case this.types.message:
+        var rawMessage = JSON.parse(twitchMessage.data.message);
+        events.emit("message", rawMessage);
 
-      /* Uncomment this when there is proper parsing
+        var message = JSON.parse(rawMessage);
+        var content = JSON.parse(message.content);
 
-      if (rawMessage.content.messageType == this.types.question) {
-        events.emit('question', rawMessage.content.messageBody);
-      }
+        switch (content.messageType) {
+          case this.types.question:
+            events.emit("question", content.messageBody);
+            break;
+          case this.types.result:
+            events.emit("result", content.messageBody);
+            break;
+        }
+        break;
 
-      if (rawMessage.content.messageType == this.types.result) {
-        events.emit('result', rawMessage.content.messageBody)
-      }
-      */
-    } else if (twitchMessage.type == this.types.response) {
-      twitchMessage.error ? events.emit("error", twitchMessage.error) : null;
-    } else if (twitchMessage.type == this.types.pong) {
-      events.emit("pong");
+      case this.types.response:
+        twitchMessage.error ? events.emit("error", twitchMessage.error) : null;
+        break;
+      case this.types.pong:
+        events.emit("pong");
     }
   }
 }
