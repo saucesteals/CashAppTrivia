@@ -1,8 +1,8 @@
 # cashapptrivia
 Easy to use module for catching CashApp Trivia questions and results!
 
-## Fork-and-use
-To make your own use of cashapptrivia, simply fork this repository and fill out the premade `index.js`!\
+## Clone-and-use
+To make your own use of cashapptrivia, simply clone (or fork :>) this repository and fill out the premade `index.js`!\
 You may look at `indexExample.js` for referencing the handler functions!
 
 ## Contributing
