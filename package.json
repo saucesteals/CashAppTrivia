@@ -1,0 +1,24 @@
+{
+  "name": "capptrivia",
+  "version": "1.0.0",
+  "description": "CashApp Trivia!",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node backend/trivia.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/saucesteals/capptrivia.git"
+  },
+  "author": "Sauce",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/saucesteals/capptrivia/issues"
+  },
+  "homepage": "https://github.com/saucesteals/capptrivia#readme",
+  "dependencies": {
+    "node-fetch": "^2.6.1",
+    "ws": "^7.4.1"
+  }
+}
