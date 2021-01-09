@@ -1,9 +1,20 @@
 # cashapptrivia
 Easy to use module for catching CashApp Trivia questions and results!
 
-## Clone-and-use
-To make your own use of cashapptrivia, simply clone (or fork :>) this repository and fill out the premade `index.js`!\
-You may look at `indexExample.js` for referencing the handler functions!
+## Usage
+
+1. Install the module
+   ```sh
+   npm/yarn install https://github.com/saucesteals/CashAppTrivia
+   ```
+2. Import and use
+   ```js
+   const CashTrivia = require("capptrivia");
+
+   const trivia = new CashTrivia(authToken);
+   ```
+
+You may look at `example.js` for references!
 
 ## Contributing
 

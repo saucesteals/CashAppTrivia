@@ -1,2 +1,2 @@
-exports = require("./modules/cashTrivia");
+module.exports = require("./modules/cashTrivia");
 

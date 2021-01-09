@@ -118,7 +118,6 @@ module.exports = class CashTrivia extends EventEmitter {
           break;
         case this.types.pong:
           this.emit("pong");
-          console.log("Ponged!")
         default:
           break;
       }
