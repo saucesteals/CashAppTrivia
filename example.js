@@ -1,5 +1,4 @@
-const CashTrivia = require("./backend/cashTrivia");
-const events = require("./backend/cashEvents");
+const CashTrivia = require("./modules/cashTrivia");
 
 const authToken = "auth-token here"; // Auth-token can be found in twitch.com COOKIES
 const trivia = new CashTrivia(authToken);
@@ -44,8 +43,8 @@ function handleResult(resultBody) {
   // 4: {Audience: 613, Active: 2376, Total: 2989}
 }
 
-events.on("question", (questionBody) => handleQuestion(questionBody));
+CashTrivia.on("question", (questionBody) => handleQuestion(questionBody));
 
-events.on("result", (resultBody) => handleResult(resultBody));
+CashTrivia.on("result", (resultBody) => handleResult(resultBody));
 
 trivia.sendTestEvents();

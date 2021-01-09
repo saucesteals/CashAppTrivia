@@ -1,11 +1,13 @@
 const WebSocket = require("ws");
-const events = require("./cashEvents");
 const fetch = require("node-fetch");
+const EventEmitter = require("events");
 
 var cashTrivia;
 
-module.exports = class CashTrivia {
+module.exports = class CashTrivia extends EventEmitter {
   constructor(authToken, wssURI="wss://pubsub-edge.twitch.tv", topics=["channel-ext-v1.471239022-qm552050p10oeisvzryhtjj2w9zm4z-broadcast",]) {
+    super();
+
     cashTrivia = this;
     this.authToken = authToken;
     this.bear = "";
@@ -32,7 +34,7 @@ module.exports = class CashTrivia {
 
     this.socket = new WebSocket(this.wssURI, { perMessageDeflate: false });
 
-    this.socket.on("open", function () {
+    this.socket.on("open", () => {
       cashTrivia.sendListenInterval();
       cashTrivia.startPinger();
     }); //Open Handler
@@ -96,15 +98,15 @@ module.exports = class CashTrivia {
       switch (twitchMessage.type) {
         case this.types.message:
           var rawMessage = test ? twitchMessage.data.message : JSON.parse(twitchMessage.data.message) ;
-          events.emit("message", rawMessage);
+          this.emit("message", rawMessage);
 
           var content = JSON.parse(rawMessage.content[0]);
           switch (content.messageType) {
             case this.types.question:
-              events.emit("question", content.messageBody);
+              this.emit("question", content.messageBody);
               break;
             case this.types.result:
-              events.emit("result", content.messageBody);
+              this.emit("result", content.messageBody);
               break;
             default:
               break;
@@ -115,7 +117,7 @@ module.exports = class CashTrivia {
           twitchMessage.error ? console.log(twitchMessage.error) : null;
           break;
         case this.types.pong:
-          //events.emit("pong");
+          this.emit("pong");
           console.log("Ponged!")
         default:
           break;
